@@ -97,19 +97,25 @@ const questions = [
 
 // // function to write README file
 function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data);
-  console.log('-----Welcome-----');
+  fs.writeFile(fileName, data,(err)  => 
+  err
+  ?console.error(err)
+  :console.log('Your File has been created')
+  );
 };
 
 
 // function to initialize program
 function init() {
   console.log('This is a Readme Generator. \nFill in the following info.');
-  inquirer.prompt(questions).then((answers) =>
-  writeToFile('./Professional-Readme/README.md',generateMarkdown({...answers})));
-  console.log('Readme has been created',answers);
+  inquirer.prompt(questions).then((answers) => {
+    writeToFile('./Professional-Readme/README.md',generateMarkdown({...answers}));
+    console.log('Readme has been created',answers);
+  });
 };
+
 init();
+// generateMarkdown();
 //console.log(inquirer.prompt(questions));
 // function call to initialize program
 // init();
